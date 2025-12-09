@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hotel Reservation</title>
+<link rel="stylesheet" href="styles.css" />
+<style>
+html {
+    scroll-behavior: smooth;
+}
+section {
+    margin-bottom: 50px;
+}
+.progress {
+    display: flex;
+    justify-content: space-between;
+    max-width: 750px;
+    margin: 0 auto 30px;
+}
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 8px 0;
+    border-bottom: 4px solid #cbd5e1;
+    color: #475569;
+    font-weight: bold;
+}
+.step.active {
+    border-color: #2563eb;
+    color: #1e3a8a;
+}
+.scroll-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 15px;
+    padding: 14px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 12px;
+    text-decoration: none;
+}
+.scroll-btn:hover {
+    background: #1d4ed8;
+}
+</style>
+
+</head>
+<body>
+
+<section id="search">
+<div class="container">
+    <h1>Find Your Room</h1>
+    <form>
+        <div class="grid">
+            <div>
+                <label>Check-In</label>
+                <input type="date" />
+            </div>
+            <div>
+                <label>Check-Out</label>
+                <input type="date" />
+            </div>
+            <div>
+                <label>Guests</label>
+                <input type="number" min="1" />
+            </div>
+        </div>
+        <label>Amenities</label>
+        <select>
+            <option>Any</option>
+            <option>Sea View</option>
+            <option>Breakfast</option>
+            <option>WiFi</option>
+        </select>
+        <a href="#select" class="scroll-btn">Search Rooms</a>
+    </form>
+</div>
+</section>
+
+<section id="select">
+<div class="container">
+    <h1>Select Your Room</h1>
+    <div class="room-grid">
+        <div class="room-card">
+            <img src="https://media.onyx-hospitality.com/-/media/project/ozo/common/property/penang-malaysia/hotel-photos/rooms/deluxe/deluxe_king-2.jpg?rev=3d04c4c15ebf4e4fa734f44c4d392ba5" />
+            <h2>Deluxe Room</h2>
+            <ul>
+                <li>2 Guests</li>
+                <li>WiFi</li>
+                <li>Breakfast</li>
+            </ul>
+            <a href="#guest" class="scroll-btn">Choose Deluxe</a>
+        </div>
+        <div class="room-card">
+            <img src="https://cache.marriott.com/is/image/marriotts7prod/cy-sbyoc-queen-oceanfront-ba-24149-38232:Classic-Hor?wid=1140&fit=constrain" />
+            <h2>Sea View Suite</h2>
+            <ul>
+                <li>2 Guests</li>
+                <li>Sea View</li>
+                <li>WiFi</li>
+            </ul>
+            <a href="#guest" class="scroll-btn">Choose Suite</a>
+        </div>
+    </div>
+    <a href="#search" class="scroll-btn" style="background:#475569;">Back to Search</a>
+</div>
+</section>
+
+<section id="guest">
+<div class="container">
+    <h1>Guest Information</h1>
+    <form>
+        <label>Full Name</label>
+        <input type="text" />
+        <label>Email</label>
+        <input type="email" />
+        <label>Phone</label>
+        <input type="tel" />
+        <label>Card Number</label>
+        <input type="text" />
+        <label>Expiry</label>
+        <input type="month" />
+        <label>CVV</label>
+        <input type="number" />
+        <a href="#payment" class="scroll-btn">Proceed to Payment</a>
+        <a href="#select" class="scroll-btn" style="background:#475569;">Back to Select</a>
+    </form>
+</div>
+</section>
+
+</body>
+</html>

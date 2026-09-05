@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2 — Consistency · Econsave UI showcase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aisle-bar">
+  <span class="aisle-tag">Aisle A2 of 5 — Consistency</span>
+  <nav>
+    <a href="familiarity.html">‹ Prev: Familiarity</a>
+    <a href="index.html">Index</a>
+    <a href="guidance.html">Next aisle: Guidance ›</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <header class="page-head">
+    <span class="eyebrow">Principle 2</span>
+    <h1>Same controls, every screen</h1>
+    <p>Switch between the three screens below. The navigation bar, the wording, and the button
+    styles never move or change — only the content underneath them does.</p>
+  </header>
+
+  <div class="note">
+    <strong>Try it:</strong> click through "Product list", "Product detail" and "My Orders".
+    Notice the nav stays fixed, "Order" is used everywhere (never "Purchase" or "Transaction"),
+    and Update / Cancel / Confirm always look and sit the same way.
+  </div>
+
+  <div class="demo-frame">
+    <div class="store-nav">
+      <span class="brand">Econsave</span>
+      <div class="store-nav-right" style="gap:1.4rem;">
+        <a href="#" style="font-size:.85rem; color:var(--ink); text-decoration:none; border-bottom:2px solid var(--leaf);">Products</a>
+        <a href="#" style="font-size:.85rem; color:var(--soft); text-decoration:none;">My Orders</a>
+        <a href="#" style="font-size:.85rem; color:var(--soft); text-decoration:none;">Profile</a>
+        <button class="icon-btn">🛒 Cart <span class="cart-count">2</span></button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-screen="list">Product list</button>
+      <button class="tab" data-screen="detail">Product detail</button>
+      <button class="tab" data-screen="orders">My Orders</button>
+    </div>
+
+    <!-- screen: list -->
+    <div class="screen" data-screen="list">
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="thumb">🍚</div>
+          <h4>Premium Rice, 5kg</h4>
+          <span class="price">RM 30.00</span>
+          <button class="btn btn-primary btn-sm">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <div class="thumb">🥛</div>
+          <h4>Fresh Milk, 1L</h4>
+          <span class="price">RM 6.90</span>
+          <button class="btn btn-primary btn-sm">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <div class="thumb">🥦</div>
+          <h4>Broccoli, 500g</h4>
+          <span class="price">RM 4.50</span>
+          <button class="btn btn-primary btn-sm">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- screen: detail -->
+    <div class="screen" data-screen="detail" style="display:none;">
+      <div style="display:flex; gap:1.4rem; flex-wrap:wrap;">
+        <div class="thumb" style="width:130px; height:130px; font-size:2.6rem; flex:none;">🍚</div>
+        <div style="flex:1; min-width:200px;">
+          <h3 style="margin-bottom:.2rem;">Premium Rice, 5kg</h3>
+          <p style="margin-bottom:.5rem;">Long grain, vacuum sealed. Stock: 40 units.</p>
+          <span class="price" style="font-size:1.1rem;">RM 30.00</span>
+          <div style="margin-top:.8rem; max-width:220px;">
+            <button class="btn btn-primary btn-sm">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- screen: orders -->
+    <div class="screen" data-screen="orders" style="display:none;">
+      <table style="width:100%; border-collapse:collapse; font-size:.88rem;">
+        <thead>
+          <tr style="text-align:left; border-bottom:1px solid var(--line); color:var(--soft);">
+            <th style="padding:.5rem 0;">Order</th><th>Status</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid var(--line);">
+            <td style="padding:.6rem 0;">ORD-2024-5678</td>
+            <td>Preparing</td>
+            <td style="text-align:right;">
+              <button class="btn btn-ghost btn-sm">Update</button>
+              <button class="btn btn-danger btn-sm">Cancel</button>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:.6rem 0;">ORD-2024-5701</td>
+            <td>Out for delivery</td>
+            <td style="text-align:right;">
+              <button class="btn btn-ghost btn-sm">Update</button>
+              <button class="btn btn-danger btn-sm">Cancel</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><b>Fixed navigation</b>The header, links and cart icon sit in the same place on every screen.</div>
+    <div class="item"><b>One vocabulary</b>"Order" is used consistently — never swapped for "Purchase" or "Transaction".</div>
+    <div class="item"><b>Repeated button styles</b>Add to Cart, Update, Cancel and Confirm always use the same shape and colour.</div>
+    <div class="item"><b>Predictable layout</b>Product image → name → price → action, in that order, everywhere a product appears.</div>
+  </div>
+</div>
+
+<footer>Aisle A2 — Consistency · Econsave UI showcase</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const screens = document.querySelectorAll('.screen');
+  tabs.forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      tabs.forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const target = tab.dataset.screen;
+      screens.forEach(s=> s.style.display = (s.dataset.screen === target) ? 'block' : 'none');
+    });
+  });
+</script>
+</body>
+</html>

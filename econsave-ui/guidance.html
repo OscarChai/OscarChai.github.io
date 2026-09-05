@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A3 — User guidance · Econsave UI showcase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aisle-bar">
+  <span class="aisle-tag">Aisle A3 of 5 — User guidance</span>
+  <nav>
+    <a href="consistency.html">‹ Prev: Consistency</a>
+    <a href="index.html">Index</a>
+    <a href="recoverability.html">Next aisle: Recoverability ›</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <header class="page-head">
+    <span class="eyebrow">Principle 3</span>
+    <h1>Help before the mistake happens</h1>
+    <p>Instructions, live validation and a visible checkout trail so customers always know what's
+    required and where they are — instead of guessing and hitting an error afterwards.</p>
+  </header>
+
+  <div class="note">
+    <strong>Try it:</strong> type a password to watch the requirement checklist update, choose a
+    vendor category to see its helper text change, click "Simulate wrong password" to see the
+    error wording, and step through the checkout trail.
+  </div>
+
+  <div class="demo-frame">
+    <h3 style="font-size:1.05rem;">Create a vendor account</h3>
+
+    <div class="field">
+      <label for="vname">Full name</label>
+      <input id="vname" type="text" placeholder="e.g. Ali bin Ahmad">
+    </div>
+
+    <div class="field">
+      <label for="vpass">Password</label>
+      <input id="vpass" type="password" placeholder="Choose a password">
+      <p class="hint" id="hintLen">○ At least 8 characters</p>
+      <p class="hint" id="hintNum">○ Contains one number</p>
+      <p class="hint" id="hintSym">○ Contains one special character</p>
+    </div>
+
+    <div class="field">
+      <label for="vcat">Product category</label>
+      <select id="vcat">
+        <option value="">Choose a category…</option>
+        <option value="household">Household products</option>
+        <option value="apparel">Apparel</option>
+        <option value="gadget">Gadgets</option>
+      </select>
+      <p class="hint" id="catHint">Pick the category your products belong to — you can request an additional one later.</p>
+    </div>
+
+    <button class="btn btn-primary" id="registerBtn">Register</button>
+
+    <hr style="border:none; border-top:1px solid var(--line); margin:1.6rem 0;">
+
+    <h3 style="font-size:1.05rem;">Log in</h3>
+    <div class="error-banner" id="errorBanner">
+      Incorrect email or password. Please try again or select <a href="recoverability.html#login">Forgot Password</a>.
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@email.com">
+    </div>
+    <div class="field" style="margin-bottom:.6rem;">
+      <label>Password</label>
+      <input type="password" placeholder="••••••••">
+    </div>
+    <button class="btn btn-ghost btn-sm" id="simulateErr">Simulate wrong password</button>
+
+    <hr style="border:none; border-top:1px solid var(--line); margin:1.6rem 0;">
+
+    <h3 style="font-size:1.05rem;">Checkout progress</h3>
+    <ul class="stepper" id="stepper">
+      <li class="current" data-step="0">Cart</li>
+      <li data-step="1">Delivery details</li>
+      <li data-step="2">Payment</li>
+      <li data-step="3">Confirmation</li>
+    </ul>
+    <button class="btn btn-primary btn-sm" style="width:auto;" id="nextStep">Next step</button>
+  </div>
+
+  <div class="legend">
+    <div class="item"><b>Live password checklist</b>Requirements shown before submission, not after rejection.</div>
+    <div class="item"><b>Contextual helper text</b>The category field explains what belongs there as it's chosen.</div>
+    <div class="item"><b>Plain-language errors</b>"Incorrect email or password" instead of an error code, with a way forward.</div>
+    <div class="item"><b>Checkout trail</b>Cart → Delivery Details → Payment → Confirmation always visible during checkout.</div>
+  </div>
+</div>
+
+<footer>Aisle A3 — User guidance · Econsave UI showcase</footer>
+
+<script>
+  const pass = document.getElementById('vpass');
+  const hintLen = document.getElementById('hintLen');
+  const hintNum = document.getElementById('hintNum');
+  const hintSym = document.getElementById('hintSym');
+  pass.addEventListener('input', ()=>{
+    const v = pass.value;
+    setHint(hintLen, v.length >= 8, 'At least 8 characters');
+    setHint(hintNum, /[0-9]/.test(v), 'Contains one number');
+    setHint(hintSym, /[^A-Za-z0-9]/.test(v), 'Contains one special character');
+  });
+  function setHint(el, ok, label){
+    el.textContent = (ok ? '✓ ' : '○ ') + label;
+    el.className = 'hint ' + (ok ? 'ok' : '');
+  }
+
+  const catHints = {
+    '': 'Pick the category your products belong to — you can request an additional one later.',
+    household: 'Household products — cleaning supplies, kitchenware and home accessories.',
+    apparel: 'Apparel — clothing, footwear and accessories.',
+    gadget: 'Gadgets — electronics, small appliances and accessories.'
+  };
+  document.getElementById('vcat').addEventListener('change', e=>{
+    document.getElementById('catHint').textContent = catHints[e.target.value];
+  });
+
+  document.getElementById('simulateErr').addEventListener('click', ()=>{
+    document.getElementById('errorBanner').classList.add('show');
+  });
+
+  const steps = document.querySelectorAll('#stepper li');
+  let current = 0;
+  document.getElementById('nextStep').addEventListener('click', ()=>{
+    if(current < steps.length - 1){
+      steps[current].classList.remove('current');
+      steps[current].classList.add('done');
+      current++;
+      steps[current].classList.add('current');
+    }
+    if(current === steps.length - 1){
+      document.getElementById('nextStep').textContent = 'Order confirmed';
+      document.getElementById('nextStep').disabled = true;
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Econsave interface showcase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aisle-bar">
+  <span class="aisle-tag">Econsave marketplace — UI principles</span>
+  <nav><span style="opacity:.7">BMSE2163 Software Engineering</span></nav>
+</div>
+
+<div class="shell">
+  <header class="page-head">
+    <span class="eyebrow">Part 3 — User interface</span>
+    <h1>Five aisles, five principles</h1>
+    <p>Each usability principle from the report is built here as a small working aisle of the
+    Econsave marketplace, so you can click through the interaction instead of just reading about it.</p>
+  </header>
+
+  <div style="display:flex; flex-direction:column; gap:0;">
+
+    <a class="aisle-row" href="familiarity.html" style="text-decoration:none;">
+      <div class="aisle-row-inner">
+        <span class="aisle-num">A1</span>
+        <div>
+          <h3>User familiarity</h3>
+          <p style="margin:0;">Search bar, cart icon, Add to Cart, Checkout — shopping the way customers already know how.</p>
+        </div>
+        <span class="enter">Enter aisle</span>
+      </div>
+    </a>
+
+    <a class="aisle-row" href="consistency.html" style="text-decoration:none;">
+      <div class="aisle-row-inner">
+        <span class="aisle-num">A2</span>
+        <div>
+          <h3>Consistency</h3>
+          <p style="margin:0;">The same navigation, wording and button styles carried across every screen.</p>
+        </div>
+        <span class="enter">Enter aisle</span>
+      </div>
+    </a>
+
+    <a class="aisle-row" href="guidance.html" style="text-decoration:none;">
+      <div class="aisle-row-inner">
+        <span class="aisle-num">A3</span>
+        <div>
+          <h3>User guidance</h3>
+          <p style="margin:0;">Inline hints, clear errors and a checkout progress trail that says where you are.</p>
+        </div>
+        <span class="enter">Enter aisle</span>
+      </div>
+    </a>
+
+    <a class="aisle-row" href="recoverability.html" style="text-decoration:none;">
+      <div class="aisle-row-inner">
+        <span class="aisle-num">A4</span>
+        <div>
+          <h3>Recoverability</h3>
+          <p style="margin:0;">Undo a removed item, step back through checkout without losing what you typed.</p>
+        </div>
+        <span class="enter">Enter aisle</span>
+      </div>
+    </a>
+
+    <a class="aisle-row" href="minimal-surprise.html" style="text-decoration:none;">
+      <div class="aisle-row-inner">
+        <span class="aisle-num">A5</span>
+        <div>
+          <h3>Minimal surprise</h3>
+          <p style="margin:0;">Filters that only filter, and a Place Order button that always confirms first.</p>
+        </div>
+        <span class="enter">Enter aisle</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<footer>Econsave E-Commerce Marketplace System — UI principle demos for coursework use.</footer>
+
+<style>
+  .aisle-row{color:inherit; display:block; border-top:1px solid var(--line);}
+  .aisle-row:last-child{border-bottom:1px solid var(--line);}
+  .aisle-row-inner{
+    display:grid;
+    grid-template-columns:3rem 1fr auto;
+    align-items:center;
+    gap:1.1rem;
+    padding:1.3rem .25rem;
+    transition:background .15s ease;
+  }
+  .aisle-row-inner:hover{background:var(--deep);}
+  .aisle-num{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.4rem;
+    color:var(--leaf-dark);
+  }
+  .enter{
+    font-size:.82rem;
+    color:var(--forest);
+    border-bottom:1px solid var(--leaf);
+    white-space:nowrap;
+  }
+  @media (max-width:520px){
+    .aisle-row-inner{grid-template-columns:2.2rem 1fr; row-gap:.4rem;}
+    .enter{grid-column:2; }
+  }
+</style>
+</body>
+</html>

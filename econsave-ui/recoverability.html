@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A4 — Recoverability · Econsave UI showcase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aisle-bar">
+  <span class="aisle-tag">Aisle A4 of 5 — Recoverability</span>
+  <nav>
+    <a href="guidance.html">‹ Prev: Guidance</a>
+    <a href="index.html">Index</a>
+    <a href="minimal-surprise.html">Next aisle: Minimal surprise ›</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <header class="page-head">
+    <span class="eyebrow">Principle 4</span>
+    <h1>Nothing is ever really lost</h1>
+    <p>Mistakes are cheap to fix: a removed item can be brought back, a checkout step can be
+    reversed without losing what was typed, and a forgotten password is reset, not a locked door.</p>
+  </header>
+
+  <div class="note">
+    <strong>Try it:</strong> remove an item and click Undo before the timer runs out. Then fill in
+    the delivery address, move to Payment, and click Back — your address stays exactly as you left it.
+  </div>
+
+  <div class="demo-frame">
+    <h3 style="font-size:1.05rem;">Your cart</h3>
+    <ul class="cart-list" id="cartList">
+      <li data-name="Premium Rice, 5kg" data-price="RM 30.00">
+        <span>Premium Rice, 5kg — RM 30.00</span>
+        <button class="x" title="Remove">✕ Remove</button>
+      </li>
+      <li data-name="Fresh Milk, 1L" data-price="RM 6.90">
+        <span>Fresh Milk, 1L — RM 6.90</span>
+        <button class="x" title="Remove">✕ Remove</button>
+      </li>
+      <li data-name="Broccoli, 500g" data-price="RM 4.50">
+        <span>Broccoli, 500g — RM 4.50</span>
+        <button class="x" title="Remove">✕ Remove</button>
+      </li>
+    </ul>
+
+    <hr style="border:none; border-top:1px solid var(--line); margin:1.6rem 0;">
+
+    <h3 style="font-size:1.05rem;">Checkout</h3>
+    <ul class="stepper">
+      <li class="current" id="stepDelivery" data-step="delivery">Delivery details</li>
+      <li id="stepPayment" data-step="payment">Payment</li>
+    </ul>
+
+    <div id="deliveryStep">
+      <div class="field">
+        <label for="addr">Delivery address</label>
+        <input id="addr" type="text" placeholder="e.g. 12 Jalan Raja Mokhtar, Kapar, Selangor">
+      </div>
+      <button class="btn btn-primary" style="width:auto;" id="toPayment">Continue to payment</button>
+    </div>
+
+    <div id="paymentStep" style="display:none;">
+      <div class="field">
+        <label>Card number</label>
+        <input type="text" placeholder="•••• •••• •••• ••••">
+      </div>
+      <div style="display:flex; gap:.7rem;">
+        <button class="btn btn-ghost" id="backBtn">‹ Back</button>
+        <button class="btn btn-primary" style="width:auto;">Pay now</button>
+      </div>
+      <p class="hint" style="margin-top:.7rem;">Delivering to: <span id="addrEcho" style="color:var(--forest); font-weight:600;"></span></p>
+    </div>
+
+    <hr style="border:none; border-top:1px solid var(--line); margin:1.6rem 0;">
+
+    <h3 id="login" style="font-size:1.05rem;">Forgot password?</h3>
+    <p style="margin-bottom:.7rem; font-size:.9rem;">A reset link is sent to the registered email — accounts are never permanently locked.</p>
+    <div class="field" style="margin-bottom:.6rem;">
+      <input type="email" placeholder="you@email.com">
+    </div>
+    <button class="btn btn-primary btn-sm" style="width:auto;" id="resetBtn">Send reset link</button>
+    <p class="hint ok" id="resetMsg" style="display:none;">✓ A password reset link has been sent to your registered email.</p>
+  </div>
+
+  <div class="legend">
+    <div class="item"><b>Undo, not gone</b>Removed cart items can be restored within a short window.</div>
+    <div class="item"><b>Preserved input</b>Stepping back through checkout never clears what was already typed.</div>
+    <div class="item"><b>Reset, not lockout</b>A forgotten password leads to a reset link, never a dead end.</div>
+  </div>
+</div>
+
+<div class="toast" id="undoToast">
+  <span id="undoText">Item removed</span>
+  <button id="undoBtn">Undo</button>
+  <div class="toast-bar" id="toastBar"></div>
+</div>
+
+<footer>Aisle A4 — Recoverability · Econsave UI showcase</footer>
+
+<script>
+  let lastRemoved = null, timer = null;
+  const toast = document.getElementById('undoToast');
+  const toastBar = document.getElementById('toastBar');
+  const list = document.getElementById('cartList');
+
+  list.addEventListener('click', e=>{
+    if(!e.target.classList.contains('x')) return;
+    const li = e.target.closest('li');
+    lastRemoved = { el: li, next: li.nextSibling };
+    document.getElementById('undoText').textContent = li.dataset.name + ' removed';
+    li.remove();
+    showToast();
+  });
+
+  function showToast(){
+    clearTimeout(timer);
+    toast.classList.add('show');
+    toastBar.style.transition = 'none';
+    toastBar.style.width = '100%';
+    requestAnimationFrame(()=>{
+      toastBar.style.transition = 'width 5s linear';
+      toastBar.style.width = '0%';
+    });
+    timer = setTimeout(()=> toast.classList.remove('show'), 5000);
+  }
+
+  document.getElementById('undoBtn').addEventListener('click', ()=>{
+    if(lastRemoved){
+      list.insertBefore(lastRemoved.el, lastRemoved.next);
+      lastRemoved = null;
+    }
+    toast.classList.remove('show');
+    clearTimeout(timer);
+  });
+
+  document.getElementById('toPayment').addEventListener('click', ()=>{
+    document.getElementById('deliveryStep').style.display = 'none';
+    document.getElementById('paymentStep').style.display = 'block';
+    document.getElementById('stepDelivery').classList.remove('current');
+    document.getElementById('stepDelivery').classList.add('done');
+    document.getElementById('stepPayment').classList.add('current');
+    document.getElementById('addrEcho').textContent = document.getElementById('addr').value || '(no address entered)';
+  });
+
+  document.getElementById('backBtn').addEventListener('click', ()=>{
+    document.getElementById('paymentStep').style.display = 'none';
+    document.getElementById('deliveryStep').style.display = 'block';
+    document.getElementById('stepPayment').classList.remove('current');
+    document.getElementById('stepDelivery').classList.remove('done');
+    document.getElementById('stepDelivery').classList.add('current');
+    // address value is untouched in the input — nothing was cleared
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    document.getElementById('resetMsg').style.display = 'block';
+  });
+</script>
+</body>
+</html>

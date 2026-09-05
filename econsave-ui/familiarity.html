@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A1 — User familiarity · Econsave UI showcase</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="aisle-bar">
+  <span class="aisle-tag">Aisle A1 of 5 — User familiarity</span>
+  <nav>
+    <a href="index.html">‹ Index</a>
+    <a href="consistency.html">Next aisle: Consistency ›</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <header class="page-head">
+    <span class="eyebrow">Principle 1</span>
+    <h1>Shop the way you already know how</h1>
+    <p>Every control below is one a customer has already used on some other shop: a search bar
+    at the top, a cart icon that fills up, an Add to Cart button, and a checkout button that starts
+    payment. Nothing here needs to be explained first.</p>
+  </header>
+
+  <div class="note">
+    <strong>Try it:</strong> search, add a couple of products to the cart, then open the account icon
+    to see the familiar login form.
+  </div>
+
+  <div class="demo-frame">
+    <div class="store-nav">
+      <span class="brand">Econsave</span>
+      <div class="search">🔍 <span id="searchLabel">Search products…</span></div>
+      <div class="store-nav-right">
+        <button class="icon-btn" id="loginBtn">👤 Account</button>
+        <button class="icon-btn">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">Fresh produce</button>
+      <button class="tab">Groceries</button>
+      <button class="tab">Household</button>
+    </div>
+
+    <div class="product-grid" id="grid">
+      <div class="product-card">
+        <div class="thumb">🍚</div>
+        <h4>Premium Rice, 5kg</h4>
+        <span class="price">RM 30.00</span>
+        <button class="btn btn-primary btn-sm add-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="thumb">🥛</div>
+        <h4>Fresh Milk, 1L</h4>
+        <span class="price">RM 6.90</span>
+        <button class="btn btn-primary btn-sm add-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="thumb">🥦</div>
+        <h4>Broccoli, 500g</h4>
+        <span class="price">RM 4.50</span>
+        <button class="btn btn-primary btn-sm add-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="thumb">🥚</div>
+        <h4>Eggs, tray of 30</h4>
+        <span class="price">RM 12.90</span>
+        <button class="btn btn-primary btn-sm add-btn">Add to Cart</button>
+      </div>
+    </div>
+
+    <div style="margin-top:1.3rem; text-align:right;">
+      <button class="btn btn-ghost btn-sm">View Cart</button>
+      <button class="btn btn-primary btn-sm" style="width:auto;">Checkout</button>
+    </div>
+  </div>
+
+  <div class="legend">
+    <div class="item"><b>Search bar</b>Placed top-of-page, same spot as any grocery app — no need to hunt for it.</div>
+    <div class="item"><b>Cart icon + count</b>Always visible, updates the moment something is added.</div>
+    <div class="item"><b>Add to Cart</b>The standard label — never "Buy", "Reserve", or anything unfamiliar.</div>
+    <div class="item"><b>Checkout</b>Takes the customer from cart to payment, exactly as on any other store.</div>
+    <div class="item"><b>Account icon</b>Opens a plain email + password login — no invented sign-in method.</div>
+    <div class="item"><b>Order Tracking</b>A visible "My Orders" tab (see Aisle A2) instead of a hidden menu.</div>
+  </div>
+</div>
+
+<!-- login modal -->
+<div class="overlay" id="loginOverlay">
+  <div class="modal">
+    <h3>Log in</h3>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@email.com">
+    </div>
+    <div class="field" style="margin-bottom:.5rem;">
+      <label for="pass">Password</label>
+      <input id="pass" type="password" placeholder="••••••••">
+    </div>
+    <button class="btn btn-primary" id="closeLogin">Log In</button>
+    <p style="text-align:center; font-size:.8rem; margin-top:.8rem;">
+      <a href="recoverability.html#login">Forgot password?</a>
+    </p>
+  </div>
+</div>
+
+<footer>Aisle A1 — User familiarity · Econsave UI showcase</footer>
+
+<script>
+  let count = 0;
+  const countEl = document.getElementById('cartCount');
+  document.querySelectorAll('.add-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      count++;
+      countEl.textContent = count;
+      const original = btn.textContent;
+      btn.textContent = 'Added ✓';
+      setTimeout(()=>btn.textContent = original, 700);
+    });
+  });
+  document.querySelectorAll('.tab').forEach(tab=>{
+    tab.addEventListener('click', ()=>{
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+  const overlay = document.getElementById('loginOverlay');
+  document.getElementById('loginBtn').addEventListener('click', ()=>overlay.classList.add('show'));
+  document.getElementById('closeLogin').addEventListener('click', ()=>overlay.classList.remove('show'));
+  overlay.addEventListener('click', e=>{ if(e.target===overlay) overlay.classList.remove('show'); });
+</script>
+</body>
+</html>
